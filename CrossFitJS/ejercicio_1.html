@@ -37,6 +37,8 @@
 			<p>Mostrar un mensaje en el <code>&lt;article&gt;</code> que indique el cuanto valen y cuantas unidades hay de ese producto.</p>
 			<article>
 
+				<p>Hay ### unidades de XXX que valen $$$</p>
+
 			</article>
 		</aside>
 
@@ -75,14 +77,32 @@
 			console.log(precio)
 			console.log(disponible)
 
-			if (nombre == "" || nombre == null || nombre == undefined) {
+			if (nombre == "" || nombre == null || nombre == undefined || !isNaN(nombre) ) {
 				alert ("ERROR... nombre NO puede quedar vacío gato!")
 			}
 
-			if ( isNan(stock) || stock < 0 || stock > 1000) {
+			if ( isNaN(stock) || stock < 0 || stock > 1000) {
 				alert("ERROR.. ingrese un valor de stock válido")
 			}
 
+			while ( isNaN(precio) || precio < 0 ) {
+				alert("ERROR.. ingrese un valor de precio válido")
+				precio = prompt ("Reingrese precio (solo números)")
+			}
+
+			if ( disponible == undefined )  {
+				let disponible = confirm("Está disponible?")
+			}
+			//Antes de 2015: concatenación
+			// let mensaje = "Hay " + stock + " unidades de " + nombre + " que valen " + precio + " c/u"
+
+			//Después de 2015: template string
+			let mensaje = `Hay ${stock} unidades de ${nombre} que valen ${precio} c/u `
+
+			console.log(mensaje)
+
+			//Manipulación del DOM - Document Object Model
+			document.querySelector("article").innerText = mensaje
 		</script>
 	</body>
 </html>
